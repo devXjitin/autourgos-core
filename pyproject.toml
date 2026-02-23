@@ -1,27 +1,135 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.21.0"]
 build-backend = "hatchling.build"
 
 [project]
 name = "autourgos-core"
-version = "0.1.0"
-authors = [
-  { name="Autourgos Team", email="autourgos@gmail.com" },
-]
-description = "Core components for building AI agents with tools."
+version = "1.0.0"
+description = "A modular framework for building tool-augmented AI agents."
 readme = "src/autourgos/core/README.md"
-license = { file="LICENSE" }
 requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+license = { file = "LICENSE" }
+
+authors = [
+  { name = "Autourgos Team", email = "autourgos@gmail.com" }
 ]
-dependencies = []
+
+maintainers = [
+  { name = "DevXJitin", email = "devxjitin@gmail.com" }
+]
+
+keywords = [
+  "ai",
+  "llm",
+  "agents",
+  "agent-framework",
+  "multi-agent",
+  "tooling",
+  "agentic-ai",
+  "genai",
+  "autourgos",
+  "autourgos-core"
+]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12"
+]
+
+dependencies = [
+  "pydantic>=2.0",
+  "typing-extensions>=4.0",
+  "rich>=13.0",
+  "tenacity>=8.0",
+]
+
+[project.optional-dependencies]
+
+openai = [
+  "openai>=1.0.0"
+]
+
+anthropic = [
+  "anthropic>=0.25.0"
+]
+
+google = [
+  "google-generativeai>=0.5.0"
+]
+
+vector = [
+  "faiss-cpu>=1.7.4"
+]
+
+dev = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+  "mypy>=1.5",
+  "ruff>=0.1.0",
+  "black>=23.0",
+  "pre-commit>=3.0",
+]
+
+docs = [
+  "mkdocs>=1.5",
+  "mkdocs-material>=9.0"
+]
+
+all = [
+  "autourgos-core[openai,anthropic,google,vector]"
+]
+
+[project.scripts]
+autourgos = "autourgos.cli:main"
 
 [project.urls]
-"Homepage" = "https://github.com/autourgos/autourgos-core"
-"Bug Tracker" = "https://github.com/autourgos/autourgos-core/issues"
+Homepage = "https://github.com/devxjitin/autourgos-core"
+Documentation = "https://github.com/devxjitin/autourgos-core#readme"
+Repository = "https://github.com/devxjitin/autourgos-core"
+Issues = "https://github.com/devxjitin/autourgos-core/issues"
+
+[tool.hatch.build]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/autourgos"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/LICENSE"
+]
+
+[tool.hatch.version]
+path = "src/autourgos/__init__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest tests"
+
+[tool.mypy]
+python_version = "3.8"
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
